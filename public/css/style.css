@@ -1,0 +1,193 @@
+html, body{
+    height: 100%;
+}
+
+#background {
+    background: rgba(0, 0, 0, 0.3);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    position: relative;
+    transition: background-image 1s ease-in-out;
+    height: 100%;
+}
+
+#gallery.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+@media all and (max-width: 1200px) {
+    #gallery.grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media all and (max-width: 769px) {
+    #gallery.grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media all and (max-width: 670px) {
+    #gallery.grid-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #gallery .gallery-item {
+        height: 450px !important;
+    }
+
+    .gallery-item img,
+    .gallery-item video {
+        object-fit: cover;
+    }
+}
+
+/* dec, 28, 2024 */
+
+#gallery .gallery-item {
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-item img,
+.gallery-item video {
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video {
+    transform: scale(1.05);
+}
+
+.container .text-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: auto;
+    padding: 20px 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.great-vibes-regular,
+.modal-title {
+    font-family: "Great Vibes", cursive;
+    font-size: 50px;
+    color: rgb(114, 47, 55);
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+}
+
+.sacramento-regular {
+    font-family: "Sacramento", cursive;
+    font-size: 36px;
+    color: #ffffff;
+    line-height: 1.2;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Button styles */
+.btn-bg {
+    display: none;
+    background-color: rgb(114, 47, 55);
+    /* background-color: #ffd700; */
+    color: #ffffff;
+    font-family: "Sacramento", cursive;
+    font-size: 28px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn-bg:hover {
+    background-color: rgba(144, 47, 55, 0.7);
+    transform: scale(1.05);
+}
+
+.demo {
+    font-family: "Sacramento", cursive;
+    font-size: 59px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 30px;
+}
+
+.modal-body img,
+.modal-body video {
+    height: 60vh;
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@media all and (max-width: 700px) {
+    .modal-body img,
+    .modal-body video {
+        height: 45vh;
+    }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none !important;
+}
+
+.carousel-control ion-icon {
+    font-size: 50px;
+    font-weight: bolder;
+    color: rgba(144, 47, 55);
+}
+
+.dropzone {
+    border: 2px dashed #4a90e2;
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.dropzone:hover {
+    background-color: #eff6ff;
+}
+
+.dropzone .dz-message {
+    font-size: 1.2rem;
+    color: #6b7280;
+}
+
+.dz-preview {
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+    width: 150px;
+}
+
+.dz-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dz-filename,
+.dz-size {
+    font-size: 12px;
+    text-align: center;
+    color: #333;
+}
