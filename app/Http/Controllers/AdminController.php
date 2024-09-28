@@ -11,31 +11,41 @@ use App\Models\Setting;
 class AdminController extends Controller
 {
 
-    public function index()
-{
-    // Retrieve the settings
-    $settings = Setting::first();
+    public function welcome() 
+    {
+        $settings = Setting::first();
+        $uploads = Upload::all();
 
-    return view('uploads.index', compact('settings'));
-}
+        return view('welcome', compact('settings', 'uploads'));
+    }
+
 
     public function dashboard()
     {
+        // Retrieve statistics
         $totalUploads = Upload::count();
         $newUsers = User::where('created_at', '>=', now()->subMonth())->count();
         $totalViews = View::sum('views');
 
-        $chartLabels = ['January', 'February', 'March', 'April', 'May']; // Example
-        $chartData = [10, 30, 50, 70, 100]; // Example data
+        // Example chart data - replace with actual data if needed
+        $chartLabels = ['January', 'February', 'March', 'April', 'May'];
+        $chartData = [10, 30, 50, 70, 100];
 
-        // Fetch settings for background images
-        $settings = Setting::first();
-        return view('admin.dashboard', compact('totalUploads', 'newUsers', 'totalViews', 'chartLabels', 'chartData', 'settings'));
+        return view('admin.dashboard', compact('totalUploads', 'newUsers', 'totalViews', 'chartLabels', 'chartData'));
+
     }
+
+    public function manageUploads()
+    {
+        $uploads = Upload::all(); // Fetch all uploads
+
+        return view('uploads.index', compact('uploads'));
+    }
+
+
 
     public function settings()
     {
-        // Fetch settings or create default ones if they don't exist
         $settings = Setting::first();
         if (!$settings) {
             $settings = Setting::create([
@@ -60,10 +70,8 @@ class AdminController extends Controller
             'background_image_3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Retrieve existing settings
         $settings = Setting::first();
 
-        // Handle background image uploads
         if ($request->hasFile('background_image_1')) {
             $imagePath1 = $request->file('background_image_1')->store('backgrounds', 'public');
             $settings->background_image_1 = $imagePath1;
@@ -79,16 +87,12 @@ class AdminController extends Controller
             $settings->background_image_3 = $imagePath3;
         }
 
-        // Update other settings fields
         $settings->update([
             'site_name' => $request->input('site_name'),
             'site_description' => $request->input('site_description'),
         ]);
 
-        // Save the settings to the database
-        $settings->save();
-
-        return redirect()->route('admin.settings')
+        return redirect()->route('admin.settings.index')
             ->with('success', 'Settings updated successfully.');
     }
 }

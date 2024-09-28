@@ -1,4 +1,5 @@
-html, body{
+html,
+body {
     height: 100%;
 }
 
@@ -80,6 +81,19 @@ html, body{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+#secondContainer.container {
+    margin-top: 25%;
+}
+
+@media screen and (max-width: 700px) {
+    #secondContainer.container {
+        margin-top: 30px;
+    }
+    #secondContainer.container .text-box {
+        margin-bottom: 0;
+    }
+}
+
 .great-vibes-regular,
 .modal-title {
     font-family: "Great Vibes", cursive;
@@ -91,14 +105,13 @@ html, body{
 .sacramento-regular {
     font-family: "Sacramento", cursive;
     font-size: 36px;
-    color: #ffffff;
+    color: #ffd700;
     line-height: 1.2;
     text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Button styles */
 .btn-bg {
-    display: none;
     background-color: rgb(114, 47, 55);
     /* background-color: #ffd700; */
     color: #ffffff;
@@ -121,6 +134,13 @@ html, body{
     line-height: 1.2;
     text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
     margin-top: 30px;
+    color: rgb(114, 47, 55);
+}
+
+@media screen and (max-width: 750px) {
+    .demo {
+        font-size: 32px;
+    }
 }
 
 .modal-body img,

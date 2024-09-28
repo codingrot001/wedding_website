@@ -59,4 +59,17 @@ class UploadController extends Controller
 
         return view('uploads.index', compact('uploads', 'settings'));
     }
+
+    public function destroy(Upload $upload)
+    {
+        // Check if the file exists and delete it
+        if (Storage::disk('public')->exists($upload->file_path)) {
+            Storage::disk('public')->delete($upload->file_path);
+        }
+
+        // Delete the record from the database
+        $upload->delete();
+
+        return redirect()->route('admin.uploads.index')->with('success', 'Upload deleted successfully.');
+    }
 }

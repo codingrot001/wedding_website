@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UploadController;
-use App\Http\Controllers\AdminUploadController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\SettingsController;  // Import the new SettingsController
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,29 +16,44 @@ use App\Http\Controllers\SettingsController;  // Import the new SettingsControll
 |
 */
 
-// Public routes
-Route::get('/uploads', [UploadController::class, 'create'])->name('upload.create');
-Route::post('/uploads', [UploadController::class, 'store'])->name('upload.store');
-Route::get('/', [UploadController::class, 'index'])->name('uploads.index');
 
-// Admin routes
-Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/', [AdminController::class, 'welcome']);
 
-    // Admin Uploads
-    Route::get('/uploads', [AdminUploadController::class, 'index'])->name('admin.uploads.index'); // Updated route name
-    Route::delete('/uploads/{upload}', [AdminUploadController::class, 'destroy'])->name('admin.uploads.destroy'); // Ensure this route is correctly named
 
-    // Admin Settings
-    Route::get('/settings', [SettingsController::class, 'index'])->name('admin.settings.index');
-    Route::post('/settings/update', [SettingsController::class, 'update'])->name('admin.settings.update');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+// Admin Dashboard Route
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.dashboard');
+
+// Manage uploads routes
+Route::get('/uploads', [AdminController::class, 'manageUploads'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.uploads.index');
+
+Route::post('/uploads/store', [UploadController::class, 'store'])->name('upload.store');
+
+Route::delete('/uploads/{upload}', [UploadController::class, 'destroy'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.uploads.destroy');
+
+
+
+// Manage settings route
+Route::get('/settings', [AdminController::class, 'settings'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.settings.index');
+
+Route::post('/settings/update', [AdminController::class, 'updateSettings'])
+    ->name('admin.settings.update');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Test email route
-Route::get('send-test-email', function () {
-    \Illuminate\Support\Facades\Mail::raw('This is a test email', function ($message) {
-        $message->to('codingrot001@gmail.com')->subject('Test Email');
-    });
-
-    return 'Email sent successfully!';
-});
+require __DIR__ . '/auth.php';

@@ -73,11 +73,11 @@ document.addEventListener("DOMContentLoaded", function () {
     uploadModalElement.addEventListener("hide.bs.modal", function () {
         location.reload();
     });
-
 });
 
 // Set the count down to the wedding day
-const countDownDate = new Date("Dec 28, 2024 10:00:00").getTime();
+const countDownDate = new Date("Dec 28, 2024 00:00:00").getTime();
+// const countDownDate = new Date("Dec 28, 2022 10:00:00").getTime();
 
 // To Update the count down every sec.
 const x = setInterval(() => {
@@ -96,16 +96,25 @@ const x = setInterval(() => {
     const sec = Math.floor((distance % (1000 * 60)) / 1000);
 
     // Out put the result
-    const demo = document.getElementById("demo");
     const count = document.getElementById("count");
     count.innerHTML = ` ${days}d ${hrs}h ${min}m ${sec}s `;
-    const upload = document.getElementById("upload");
+    const firstContainer = document.getElementById("firstContainer");
+    const secondContainer = document.getElementById("secondContainer");
+    firstContainer.style.display = "none";
 
     //  If the count down is over
     if (distance < 0) {
         clearInterval(x);
-        count.style.display = 'none';
-        demo.innerHTML = "No uploads yet. Be the first to upload something!";
-        upload.style.display = "inline";
+        secondContainer.style.display = "none";
+        firstContainer.style.display = "inline";
+        // count.style.display = "none";
     }
 }, 1000);
+
+const music = document.getElementById("background-music");
+music.volume = 0.5;
+document.addEventListener("click", () => {
+    if (music.paused) {
+        music.play();
+    }
+});
