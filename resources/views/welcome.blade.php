@@ -33,7 +33,7 @@
             <div>
                 <div class="text-box">
                     <h2 class="great-vibes-regular font-bold text-center">
-                        {{ $settings->site_name ?? 'Welcome to our wedding' }}</h2>
+                        Welcome to our wedding</h2>
                     <p class="sacramento-regular font-bold text-center">#LoveFromAtoZ</p>
                 </div>
                 <!-- Upload Button -->
@@ -77,7 +77,7 @@
     <div id="secondContainer" class="container mx-auto mt-10">
         <div class="text-box">
             <h2 class="great-vibes-regular font-bold text-center">
-                {{ $settings->site_name ?? 'Welcome to our wedding' }}</h2>
+                Welcome to our wedding</h2>
             <p class="sacramento-regular font-bold text-center">#LoveFromAtoZ</p>
             <p class="demo text-center font-bold col-span-full" style="z-index: 1;" id="count"></p>
         </div>
